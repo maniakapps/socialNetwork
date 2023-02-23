@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 from rest_framework import routers
+
+from myapp import views
 from myapp.views import UserViewSet, PostViewSet, CommentViewSet, TagViewSet
 
 router = routers.DefaultRouter()
@@ -27,6 +29,7 @@ router.register(r'tags', TagViewSet)
 
 urlpatterns = [
     # ...
+    path('', views.home, name='home'),
     path("admin/", admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('login/', LoginView.as_view(), name='login'),

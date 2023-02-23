@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework import viewsets
 from myapp.models import User, Post, Comment, Tag
 from myapp.serializers import UserSerializer, PostSerializer, CommentSerializer, TagSerializer
@@ -21,3 +22,11 @@ class CommentViewSet(viewsets.ModelViewSet):
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+
+
+def home(request):
+    posts = Post.objects.all().order_by("-created_at")
+    context = {
+        "posts": posts,
+    }
+    return render(request, "home.html", context)
